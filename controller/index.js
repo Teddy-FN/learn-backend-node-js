@@ -4,7 +4,6 @@ const HomeModels = require("../models/index");
 exports.home = (req, res, next) => {
   // get Controller
   HomeModels.getAllMessage((callBack) => {
-    console.log("callBack =>", callBack);
     res.render("home", {
       pageTitle: "Home",
       path: "/",
@@ -16,10 +15,6 @@ exports.home = (req, res, next) => {
 };
 
 exports.addUserList = (req, res, next) => {
-  console.log("req.params =>", req.params);
-  console.log("req.query =>", req.query);
-
-  // Add to controller
   const body = {
     id: Math.random().toString(),
     ...req.body,
@@ -42,6 +37,22 @@ exports.editUserMessage = (req, res, next) => {
       editMode: true,
     });
   });
-  // // Direct to home again
-  // res.redirect("/");
+};
+
+exports.postEditMessage = (req, res, next) => {
+  // Add to controller
+  const id = req.params.id;
+  const updatedName = req.body.name;
+  const updatedMessage = req.body.message;
+
+  // Updated to moodels
+  const userModels = new HomeModels({
+    id: id,
+    name: updatedName,
+    message: updatedMessage,
+  });
+  userModels.save();
+
+  // direct to home
+  res.redirect("/");
 };

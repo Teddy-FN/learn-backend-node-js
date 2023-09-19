@@ -2,7 +2,7 @@
 </head>
 <body>
   <h1>HOME PAGE</h1>
-  <form action="<% if (!editMode) { %>/add-name<% } else { %>/edit-name/<%= users.id %><% } %>" method="POST">
+  <form action="<% if (!editMode) { %>/add-name<% } else { %>/edit-name/<%= dataById.id %><% } %>" method="POST">
     <div>
       <label for="name">Name</label>
       <input type="text" id="name" name="name" value="<% if (editMode) { %><%= dataById.name %><% } %>"
@@ -12,7 +12,7 @@
       <label for="message">Message</label>
       <input type="text" id="message" name="message" value="<% if (editMode) { %><%= dataById.message %><% } %>" />
     </div>
-    <button type="submit"><%= if(!editMode) { %>Submit<%= } else { %>Edit Message<%= } %></button>
+    <button type="submit"><% if(!editMode) { %>Submit<% } else { %>Edit Message<% } %></button>
   </form>
 
   <main>
