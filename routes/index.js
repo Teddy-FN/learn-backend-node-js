@@ -14,6 +14,6 @@ router.post("/add-name", controller.addUserList);
 router.get("/edit-message/:id", controller.editUserMessage);
 
 // Post Edit Message
-router.get("/edit-name/:id", controller.addUserList);
+router.post("/edit-name/:id", controller.postEditMessage);
 
 module.exports = router;

@@ -18,16 +18,28 @@ module.exports = class Home {
       if (!err) {
         users = JSON.parse(fileContent);
       }
-      users.push(this);
-      fs.writeFile(p, JSON.stringify(users), (err) => {
-        console.log("ERR =>", err);
-      });
+
+      const id = this.id;
+      if (id) {
+        const getMessageUserIndex = users.findIndex(
+          (user) => user.id === id || user.id === Number(id)
+        );
+        const usersMessage = [...users];
+        usersMessage[getMessageUserIndex] = this;
+        fs.writeFile(p, JSON.stringify(usersMessage), (err) => {
+          console.log("ERR =>", err);
+        });
+      } else {
+        users.push(this);
+        fs.writeFile(p, JSON.stringify(users), (err) => {
+          console.log("ERR =>", err);
+        });
+      }
     });
   }
 
   static getAllMessage(cb) {
     const p = path.join(dirname, "data", "data.json");
-
     fs.readFile(p, (err, fileContent) => {
       if (err) {
         cb([]);
@@ -45,8 +57,9 @@ module.exports = class Home {
         data = [];
       }
       data = JSON.parse(fileContent);
-      const findDataById = data.find((user) => user.id === Number(id));
-
+      const findDataById = data.find(
+        (user) => user.id === id || user.id === Number(id)
+      );
       cb(findDataById, data);
     });
   }
