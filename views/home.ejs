@@ -1,0 +1,35 @@
+<%- include('main/head.ejs') %>
+</head>
+<body>
+  <h1>HOME PAGE</h1>
+  <form action="<% if (!editMode) { %>/add-name<% } else { %>/edit-name/<%= users.id %><% } %>" method="POST">
+    <div>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" value="<% if (editMode) { %><%= dataById.name %><% } %>"
+      />
+    </div>
+    <div>
+      <label for="message">Message</label>
+      <input type="text" id="message" name="message" value="<% if (editMode) { %><%= dataById.message %><% } %>" />
+    </div>
+    <button type="submit"><%= if(!editMode) { %>Submit<%= } else { %>Edit Message<%= } %></button>
+  </form>
+
+  <main>
+    <% if (users.length > 0) { %>
+        <div class="grid">
+            <% for (let user of users) { %>
+              <h1 ><%= user.name %></h1>
+              <p ><%= user.message %></p>
+              <p ><%= user.id %></p>
+              <a href="/edit-message/<%= user.id %>" class="btn">Edit Message</a>
+              <form action="/delete-message/<%= user.id %>" method="POST">
+                <button>Delete Message</button>
+              </form>
+            <% } %>
+        </div>
+    <% } else { %>
+        <h1>No Message!</h1>
+    <% } %>
+  </main>
+<%- include('main/end.ejs') %>
