@@ -11,9 +11,12 @@ router.get("/", controller.home);
 router.post("/add-name", controller.addUserList);
 
 // Edit Message
-router.get("/edit-message/:id", controller.editUserMessage);
+router.post("/edit-message/:id", controller.editUserMessage);
 
 // Post Edit Message
 router.post("/edit-name/:id", controller.postEditMessage);
+
+// Delete Post
+router.post("/delete-message/:id", controller.deleteMessage);
 
 module.exports = router;

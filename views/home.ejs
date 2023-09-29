@@ -2,15 +2,15 @@
 </head>
 <body>
   <h1>HOME PAGE</h1>
-  <form action="<% if (!editMode) { %>/add-name<% } else { %>/edit-name/<%= dataById.id %><% } %>" method="POST">
+  <form action="<% if (!editMode) { %>/add-name<% } else { %>/edit-name/<%= dataById %><% } %>" method="POST">
     <div>
       <label for="name">Name</label>
-      <input type="text" id="name" name="name" value="<% if (editMode) { %><%= dataById.name %><% } %>"
+      <input type="text" id="name" name="name" value="<% if (editMode) { %><%= dataEditFieldName %><% } %>"
       />
     </div>
     <div>
       <label for="message">Message</label>
-      <input type="text" id="message" name="message" value="<% if (editMode) { %><%= dataById.message %><% } %>" />
+      <input type="text" id="message" name="message" value="<% if (editMode) { %><%= dataEditFieldMessage %><% } %>" />
     </div>
     <button type="submit"><% if(!editMode) { %>Submit<% } else { %>Edit Message<% } %></button>
   </form>
@@ -22,7 +22,9 @@
               <h1 ><%= user.name %></h1>
               <p ><%= user.message %></p>
               <p ><%= user.id %></p>
-              <a href="/edit-message/<%= user.id %>" class="btn">Edit Message</a>
+              <form action="/edit-message/<%= user.id %>" method="POST">
+                <button>Edit Message</button>
+              </form>
               <form action="/delete-message/<%= user.id %>" method="POST">
                 <button>Delete Message</button>
               </form>
